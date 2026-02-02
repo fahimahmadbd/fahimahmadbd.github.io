@@ -355,7 +355,6 @@ footer {
     color: #d4a017;
 }
 
-/* মোবাইল রেসপন্সিভ */
 /* মোবাইল রেসপন্সিভ এবং মেনু ডিজাইন */
 @media screen and (max-width: 768px) {
     body {
@@ -365,16 +364,17 @@ footer {
     .nav-links {
         position: absolute;
         right: 0px;
-        height: 92vh; /* মেনু পুরো স্ক্রিন জুড়বে */
+        height: 92vh;
         top: 8vh;
         background-color: #fff;
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 60%; /* মেনুর চওড়া */
-        transform: translateX(100%); /* লুকিয়ে থাকবে */
+        width: 60%;
+        transform: translateX(100%); /* প্রথমে লুকিয়ে থাকবে */
         transition: transform 0.5s ease-in;
         box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+        z-index: 999;
     }
 
     .nav-links li {
@@ -402,10 +402,15 @@ footer {
         width: 80%;
         margin: 0 auto;
     }
+
+    /* এই ক্লাসটা জাভাস্ক্রিপ্ট দিয়ে যখন যোগ হবে, তখন মেনু বের হবে */
+    .nav-active {
+        transform: translateX(0%) !important;
+    }
+    
+    /* বার্গার আইকন এনিমেশন (Optional) */
+    .toggle .fa-bars:before {
+        content: "\f00d"; /* Cross Icon */
+    }
 }
 
-/* জাভাস্ক্রিপ্ট এই ক্লাসটা যোগ করলে মেনু বের হবে */
-.nav-active {
-    transform: translateX(0%) !important;
-    display: flex !important;
-}
