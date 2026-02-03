@@ -70,6 +70,15 @@ nav {
 
 .burger { display: none; }
 
+/* বার্গার আইকন স্টাইল */
+.burger div {
+    width: 25px;
+    height: 3px;
+    background-color: #2c3e50;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
 /* হিরো সেকশন */
 header {
     height: 100vh;
@@ -100,12 +109,11 @@ header {
     transform: scale(1.05);
 }
 
-/* ছবির জন্য ফিক্স (যাতে ফাটা না দেখায়) */
 .profile-pic {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    object-fit: cover; /* ছবি ক্রপ করে সুন্দর দেখাবে */
+    object-fit: cover;
     object-position: center;
 }
 
@@ -355,62 +363,90 @@ footer {
     color: #d4a017;
 }
 
-/* মোবাইল রেসপন্সিভ এবং মেনু ডিজাইন */
+/* =========================================
+   PREMIUM MOBILE MENU DESIGN (Scroll Lock + Full Screen)
+   ========================================= */
 @media screen and (max-width: 768px) {
-    body {
-        overflow-x: hidden;
+    /* 1. Body Scroll Lock when Menu Open */
+    body.menu-open {
+        overflow: hidden !important;
     }
-    
+
+    /* 2. Full Screen Menu */
     .nav-links {
-        position: absolute;
-        right: 0px;
-        height: 92vh;
-        top: 8vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100%;
         background-color: #fff;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        width: 60%;
-        transform: translateX(100%); /* প্রথমে লুকিয়ে থাকবে */
-        transition: transform 0.5s ease-in;
-        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-        z-index: 999;
+        justify-content: center; /* Center Vertically */
+        align-items: center; /* Center Horizontally */
+        transform: translateY(100%); /* Start from bottom */
+        opacity: 0;
+        transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        z-index: 998; /* Behind Burger Icon */
     }
 
+    /* Active State */
+    .nav-active {
+        transform: translateY(0%) !important;
+        opacity: 1 !important;
+    }
+
+    /* 3. Big Fonts & Animation */
     .nav-links li {
-        opacity: 1; 
-        margin: 20px 0;
+        opacity: 0;
+        margin: 25px 0;
+        list-style: none;
     }
 
-    .burger {
-        display: block;
-        font-size: 1.8rem;
-        cursor: pointer;
+    .nav-links a {
+        font-size: 2.2rem; /* Big Font */
+        font-weight: 700;
         color: #2c3e50;
     }
-
-    header h1 {
-        font-size: 2.5rem;
-    }
     
-    .container {
-        width: 95%;
-    }
-    
-    .hero-buttons {
-        flex-direction: column;
-        width: 80%;
-        margin: 0 auto;
+    .nav-links a:hover {
+        color: #d4a017;
     }
 
-    /* এই ক্লাসটা জাভাস্ক্রিপ্ট দিয়ে যখন যোগ হবে, তখন মেনু বের হবে */
-    .nav-active {
-        transform: translateX(0%) !important;
+    /* Animation Keyframes */
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
     }
-    
-    /* বার্গার আইকন এনিমেশন (Optional) */
-    .toggle .fa-bars:before {
-        content: "\f00d"; /* Cross Icon */
+
+    /* Sequential Animation */
+    .nav-active li { animation: fadeUp 0.5s ease forwards; }
+    .nav-active li:nth-child(1) { animation-delay: 0.1s; }
+    .nav-active li:nth-child(2) { animation-delay: 0.2s; }
+    .nav-active li:nth-child(3) { animation-delay: 0.3s; }
+    .nav-active li:nth-child(4) { animation-delay: 0.4s; }
+    .nav-active li:nth-child(5) { animation-delay: 0.5s; }
+
+    /* 4. Fixed Burger Icon */
+    .burger {
+        display: block;
+        position: fixed;
+        right: 20px;
+        top: 25px;
+        z-index: 1001; /* On top of everything */
+        cursor: pointer;
+        padding: 5px;
+        background: rgba(255, 255, 255, 0.5); /* Slight BG for visibility */
+        border-radius: 5px;
     }
+
+    /* Burger Animation */
+    .toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
+    .toggle .line2 { opacity: 0; }
+    .toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
+
+    /* General Mobile Fixes */
+    header h1 { font-size: 2.5rem; }
+    .container { width: 95%; }
+    .hero-buttons { flex-direction: column; width: 80%; margin: 0 auto; }
 }
-
