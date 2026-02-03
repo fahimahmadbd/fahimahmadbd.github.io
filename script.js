@@ -1,4 +1,4 @@
-// ওয়েবসাইট লোড মেসেজ
+// ওয়েবসাইট লোড মেসেজ
 console.log("Website Loaded Successfully");
 
 // ফুটারে সাল আপডেট
@@ -24,27 +24,32 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             behavior: 'smooth'
         });
     });
-
 });
-// --- হ্যামবার্গার মেনু লজিক (এটা যোগ করুন) ---
+
+// --- PREMIUM HAMBURGER MENU LOGIC (SCROLL LOCK) ---
 const burger = document.querySelector('.burger');
 const nav = document.querySelector('.nav-links');
 const navLinks = document.querySelectorAll('.nav-links li');
+const body = document.body; // বডি সিলেক্ট করা
 
 if(burger){
     burger.addEventListener('click', () => {
-        // মেনু টগল করা
+        // মেনু ওপেন/ক্লোজ
         nav.classList.toggle('nav-active');
         
-        // বার্গার আইকন এনিমেশন (অপশনাল)
+        // আইকন এনিমেশন
         burger.classList.toggle('toggle');
+        
+        // স্ক্রল লক (সবচেয়ে জরুরি)
+        body.classList.toggle('menu-open');
     });
 }
 
-// মেনুর লিংকে ক্লিক করলে মেনু বন্ধ হবে
+// মেনুর লিংকে ক্লিক করলে মেনু অটো বন্ধ হবে + স্ক্রল লক খুলবে
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
         nav.classList.remove('nav-active');
         burger.classList.remove('toggle');
+        body.classList.remove('menu-open'); // লক রিমুভ
     });
 });
